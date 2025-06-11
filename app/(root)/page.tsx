@@ -1,13 +1,20 @@
 import InterviewCard from '@/components/InterviewCard'
 import { Button } from '@/components/ui/button'
-import { dummyInterviews } from '@/constants'
-// import { getCurrentUser} from '@/lib/actions/auth.action'
-// import { getInterviewsByUserId, getLatestInterviews } from '@/lib/actions/general.action'
+import { getCurrentUser} from '@/lib/actions/auth.action'
+import { getInterviewsByUserId, getLatestInterviews } from '@/lib/actions/general.action'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
-const page = () => {
+const page = async () => {
+  const user = await getCurrentUser();
+  const [userInterviews, allInterview] = await Promise.all([
+      getInterviewsByUserId(user?.id!),
+      getLatestInterviews({ userId: user?.id! }),
+  ]);
+  const hasPastInterviews = userInterviews?.length! > 0;
+  const hasUpcomingInterviews = allInterview?.length! > 0;
+
   return (
     <>
        <section className="card-cta">
@@ -35,7 +42,7 @@ const page = () => {
         <h2>Your Interviews</h2>
 
         <div className="interviews-section">
-           {/* {hasPastInterviews ? (
+           {hasPastInterviews ? (
             userInterviews?.map((interview) => (
               <InterviewCard
                 {...interview}
@@ -45,14 +52,7 @@ const page = () => {
             ))
           ) : (
             <p>You haven&apos;t taken any interviews yet</p>
-            )} */}
-
-            {dummyInterviews.map((interview) => (
-              <InterviewCard
-                {...interview}
-                key={interview.id}
-              />
-            ))}
+            )}
         </div>
 
       </section>
@@ -61,7 +61,7 @@ const page = () => {
         <h2>Take Interviews</h2>
 
         <div className="interviews-section">
-           {/* {hasUpcomingInterviews ? (
+           {hasUpcomingInterviews ? (
             allInterview?.map((interview) => (
               <InterviewCard
                 {...interview}
@@ -71,13 +71,7 @@ const page = () => {
             ))
           ) : (
             <p>There are no interviews available</p>
-            )} */}
-            {dummyInterviews.map((interview) => (
-              <InterviewCard
-                {...interview}
-                key={interview.id}
-              />
-            ))}
+            )}
         </div>
 
       </section>
