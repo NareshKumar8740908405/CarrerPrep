@@ -1,4 +1,4 @@
-// import SignOutButton from '@/components/SignOutButton';
+import SignOutButton from '@/components/SignOutButton';
 import { isAuthenticated } from '@/lib/actions/auth.action';
 import Image from 'next/image'
 import Link from 'next/link'
@@ -22,7 +22,7 @@ const RootLayout = async ({ children }: { children: ReactNode }) => {
 
         </Link>
 
-        {/* <SignOutButton/> */}
+        <SignOutButton/>
       </nav>
 
       {children}
