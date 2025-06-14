@@ -10,8 +10,8 @@ const RootLayout = async ({ children }: { children: ReactNode }) => {
   if (!isUserAuthenticated) redirect("/sign-in");
   return (
      <div className="root-layout">
-      <nav className="flex items-center justify-between px-4 py-3">
-        <Link href="/" className="flex items-center gap-2">
+      <nav className="flex items-center justify-between flex-wrap gap-4 px-4 py-3">
+        <Link href="/" className="flex items-center gap-2 shrink-0">
          <Image 
               src="/logo.svg" 
               alt="MockMate Logo" 
